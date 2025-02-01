@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import ProductList from './components/ProductList';
+import Login from './components/Login';
+import Register from './components/Register';
+import ProductDetail from './components/ProductDetail'
+import ProtectedRoute from './components/ProtectedRoute'
+import Cart from './components/Cart';
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/cart" element={<Cart />} /> {/* Protected route */}
+        </Route>
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
